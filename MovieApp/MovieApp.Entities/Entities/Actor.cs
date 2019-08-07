@@ -8,6 +8,7 @@ namespace MovieApp.Entities.Entities
     {
         public int Id { get; set; }
         public string Name { get; set; }
+        public string ProfileImgPath { get; set; }
 
         public ICollection<MovieActor> MovieActors { get; set; }
     }
