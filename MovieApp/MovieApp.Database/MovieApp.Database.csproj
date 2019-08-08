@@ -5,8 +5,8 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\MovieApp.Core\MovieApp.Core.csproj" />
     <ProjectReference Include="..\MovieApp.Entities\MovieApp.Entities.csproj" />
-    <ProjectReference Include="..\Movieapp.Helpers\MovieApp.Helpers.csproj" />
   </ItemGroup>
 
   <ItemGroup>

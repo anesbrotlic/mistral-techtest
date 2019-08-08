@@ -3,12 +3,16 @@ using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Security.Claims;
+using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using MovieApp.Models;
 using MovieApp.Services;
+using MovieApp.Services.Implementations;
+using MovieApp.Services.Interfaces;
+using Serilog;
 
 namespace MovieApp.WebAPI.Controllers
 {
@@ -16,30 +20,32 @@ namespace MovieApp.WebAPI.Controllers
     [ApiController]
     public class AuthController : ControllerBase
     {
-        private AuthService AuthService;
+        private IUserService userService;
 
-        public AuthController(AuthService authSer)
+        public AuthController(IUserService userService)
         {
-            AuthService = authSer;
+            this.userService = userService;
         }
+
 
         [HttpPost("login")]
-        public IActionResult Login([FromBody] LoginModel loginModel)
+        public async Task<ActionResult<string>> LoginAsync([FromBody] LoginModel loginModel, CancellationToken cancellationToken)
         {
-            var token = AuthService.TryLoginAndGenerateJWT(loginModel);
+            try
+            {
+                var token = await userService.TryLoginAndGenerateJWTAsync(cancellationToken, loginModel);
 
-            if (String.IsNullOrEmpty(token))
-                return BadRequest();
+                if (String.IsNullOrEmpty(token))
+                    return BadRequest("User account not found!");
 
-            return Ok(token);
+                return Ok(token);
+            }
+            catch (Exception ex)
+            {
+                Log.Error(ex, $"Error occurs in {nameof(LoginAsync)}");
+                return BadRequest("Something went wrong!");
+            }
         }
 
-        [Authorize]
-        [HttpPost("login2")]
-        public IActionResult Login2()
-        {
-            var id=AuthService.GetUserIdFromToken(HttpContext.User);
-            return Ok(id);
-        }
     }
 }

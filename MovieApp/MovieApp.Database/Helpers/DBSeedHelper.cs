@@ -9,12 +9,12 @@ using System.Threading.Tasks;
 using MovieApp.Entities.Entities;
 using Newtonsoft.Json;
 
-namespace MovieApp.Helpers
+namespace MovieApp.Database.Helpers
 {
     public static class DBSeedHelper
     {
         private static string CurrentDirectory = Directory.GetCurrentDirectory();
-        private static string JsonFilesLocation = Path.GetFullPath(Path.Combine(CurrentDirectory, @"..\\MovieApp.Database\\"));
+        private static string JsonFilesLocation = Path.GetFullPath(Path.Combine(CurrentDirectory, @"..\\MovieApp.Database\\DATA\\"));
         private static string MovieImagesDirectoryLocation = CurrentDirectory + "\\Images\\Movies\\";
         private static string ActorsImagesDirectoryLocation = CurrentDirectory + "\\Images\\Actors\\";
         private static string ImagesDownloadURL = "https://image.tmdb.org/t/p/w500/";
@@ -26,16 +26,18 @@ namespace MovieApp.Helpers
             dynamic array = ReadJSONFile("Actors.json");
 
             var actorsList = new List<Actor>();
-            for (int i = 0; i < array.Count; i++)
+            foreach (var actorInJSON in array)
+            {
                 actorsList.Add(new Actor
                 {
-                    Id = i+1,
-                    Name = array[i].name,
-                    ProfileImgPath = array[i].profile_path?.ToString()??""
+                    Name = actorInJSON.name,
+                    ProfileImgPath = actorInJSON.profile_path?.ToString() ?? ""
                 });
+            }
+                
 
 
-            DownloadActorPhotos(actorsList).Wait();
+            //DownloadActorPhotos(actorsList).Wait();
 
             foreach (var actor in actorsList)
             {
@@ -69,15 +71,15 @@ namespace MovieApp.Helpers
             {
                 movieList.Add(new Movie
                 {
-                    Id = i+1,
                     Description = array[i].overview,
                     ReleaseDate = array[i].release_date,
                     Title = array[i].title,
+                    TVShow = i%3==0,
                     CoverImgPath = array[i].poster_path?.ToString()??""
                 });
             }
 
-            DownloadMoviePhotos(movieList).Wait();
+            //DownloadMoviePhotos(movieList).Wait();
 
             foreach (var movie in movieList)
             {

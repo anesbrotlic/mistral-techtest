@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace MovieApp.Entities.Entities
+namespace MovieApp.Models
 {
-    public class Movie
+    public class MovieModel
     {
         public int Id { get; set; }
         public string Title { get; set; }
@@ -13,8 +13,9 @@ namespace MovieApp.Entities.Entities
         public DateTime ReleaseDate { get; set; }
         public bool TVShow { get; set; }
 
-        public ICollection<MovieActor> MovieActors { get; set; }
-        public ICollection<MovieRatings> MovieRatings { get; set; }
+        public string Actors { get; set; }
+        public float AvgRate { get; set; }
 
+        public int RateByUser { get; set; }
     }
 }
