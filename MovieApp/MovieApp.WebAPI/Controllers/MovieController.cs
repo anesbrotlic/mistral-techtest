@@ -78,7 +78,8 @@ namespace MovieApp.WebAPI.Controllers
         {
             try
             {
-                var userId = JWTHelper.GetUserIdFromToken(HttpContext.User);
+                //var userId = JWTHelper.GetUserIdFromToken(HttpContext.User);
+                var userId = 4;
 
                 var updatedMovie = await movieService.RateMovieAsync(movieId, userId, rating, cancellationToken);
 

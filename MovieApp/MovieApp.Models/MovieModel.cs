@@ -10,7 +10,7 @@ namespace MovieApp.Models
         public string Title { get; set; }
         public string CoverImgPath { get; set; }
         public string Description { get; set; }
-        public DateTime ReleaseDate { get; set; }
+        public string ReleaseDate { get; set; }
         public bool TVShow { get; set; }
 
         public string Actors { get; set; }

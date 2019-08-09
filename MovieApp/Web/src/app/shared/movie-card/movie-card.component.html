@@ -1,0 +1,21 @@
+<div class="card mb-5 d-flex" style="width:min-content;">
+        <!-- <h3 class="card-header">Card header</h3> -->
+        <img class="movie-cover-img" [src]="createImgPath(movie.coverImgPath)" alt="Card image">
+          <div class="card-body">
+            <h5 class="card-title">{{movie.title}}</h5>
+            <h6 class="card-subtitle text-muted">{{movie.releaseDate}}</h6>
+          </div>
+        <div class="card-body">
+          <p class="card-text movie-description">{{movie.description}}</p>
+        </div>
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item">{{movie.actors}}</li>
+        </ul>
+        <div class="card-body">
+          <a href="#" class="card-link">Card link</a>
+          <a href="#" class="card-link">Another link</a>
+        </div>
+        <div class="card-footer text-muted">
+          2 days ago
+        </div>
+      </div>

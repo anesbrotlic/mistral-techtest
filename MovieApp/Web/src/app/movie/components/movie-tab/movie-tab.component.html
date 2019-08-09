@@ -1,0 +1,20 @@
+<div class="d-flex flex-column my-lg-4 my-md-3 my-sm-1">
+
+        <ul class="nav nav-tabs">
+                <li class="nav-item">
+                  <a class="nav-link active" (click)="toggleShowMovie(true)" data-toggle="tab" href="#movies">Movies</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" (click)="toggleShowMovie(false)" data-toggle="tab" href="#tvShows">TV Shows</a>
+                </li>
+              </ul>
+              <div id="myTabContent" class="tab-content">
+                <div class="tab-pane fade active show" id="movies">
+                  <app-movie-list *ngIf="showMovies" [showOnlyMovies]="showMovies"></app-movie-list>
+                </div>
+                <div class="tab-pane fade" id="tvShows">
+                  <app-movie-list *ngIf="!showMovies" [showOnlyMovies]="showMovies"></app-movie-list>
+                </div>
+              </div>
+        
+        </div>
