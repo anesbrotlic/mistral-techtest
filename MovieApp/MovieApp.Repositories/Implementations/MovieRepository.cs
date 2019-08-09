@@ -50,5 +50,34 @@ namespace MovieApp.Repositories.Implementations
                 .ThenInclude(ma=>ma.Actor)
                 .FirstOrDefaultAsync(m => m.Id == movieId, cancellationToken);
         }
+
+        public async Task<Movie> RateMovieAsync(int movieId, int userId, int rating, CancellationToken cancellationToken)
+        {
+            // ensure movie exists
+            if (!await dbContext.Movies.AnyAsync(m=>m.Id==movieId,cancellationToken))
+                return null;
+
+            // rate movie
+            var movieRating = await dbContext.MovieRatings.FirstOrDefaultAsync(mr => mr.UserId == userId && mr.MovieId == movieId,cancellationToken);
+            if (movieRating == null)
+            {
+                await dbContext.MovieRatings.AddAsync(
+                    new MovieRatings {UserId = userId, MovieId = movieId, Rating = rating}, cancellationToken);
+            }
+            else
+            {
+                movieRating.Rating = rating;
+            }
+
+            await dbContext.SaveChangesAsync(cancellationToken);
+
+            // returns rated movie
+            return await dbContext.Movies
+                .Include(m=>m.MovieRatings)
+                .Include(m=>m.MovieActors)
+                    .ThenInclude(ma=>ma.Actor)
+                .FirstOrDefaultAsync(m=>m.Id==movieId,cancellationToken);
+
+        }
     }
 }

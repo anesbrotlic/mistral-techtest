@@ -6,8 +6,11 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using MovieApp.Entities.Entities;
+using MovieApp.Models;
 using MovieApp.Services;
 using MovieApp.Services.Implementations;
+using MovieApp.Services.Interfaces;
+using Serilog;
 
 namespace MovieApp.WebAPI.Controllers
 {
@@ -15,21 +18,32 @@ namespace MovieApp.WebAPI.Controllers
     [ApiController]
     public class ActorController : ControllerBase
     {
-        private ActorService ActorService;
+        private IActorService actorService;
 
-        public ActorController(ActorService actorSer)
+        public ActorController(IActorService _actorService)
         {
-            ActorService = actorSer;
+            actorService = _actorService;
         }
 
 
-        [HttpGet]
-        [ProducesResponseType(200)]
-        [ProducesResponseType(401)]
-        public async Task<ActionResult<List<Actor>>> GetAll(CancellationToken cancelationToken)
+        [HttpGet("{actorId:int}")]
+        public async Task<ActionResult<List<ActorDetailsModel>>> GetByIdAsync([FromRoute]int actorId, CancellationToken cancelationToken)
         {
-            var list = await ActorService.GettAllActorsAsync(cancelationToken);
-            return Ok(list);
+            try
+            {
+                var actorDetails = await actorService.GetByIdAsync(actorId, cancelationToken);
+
+                if (actorDetails == null)
+                    return NotFound();
+
+                return Ok(actorDetails);
+
+            }
+            catch (Exception ex)
+            {
+                Log.Error(ex,$"Error occurs in {nameof(GetByIdAsync)}");
+                return StatusCode(500, "Something went wrong!");
+            }
         }
     }
 }

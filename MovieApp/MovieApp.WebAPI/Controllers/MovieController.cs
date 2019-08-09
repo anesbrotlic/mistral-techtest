@@ -5,6 +5,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using MovieApp.Core.Helpers;
 using MovieApp.Entities.Entities;
 using MovieApp.Models;
 using MovieApp.Services;
@@ -32,7 +33,13 @@ namespace MovieApp.WebAPI.Controllers
         {
             try
             {
-                var list = await movieService.GetMoviesAsync(page, tvShow, search,HttpContext.User, cancellationToken);
+                var userId = JWTHelper.GetUserIdFromToken(HttpContext.User);
+
+                var list = await movieService.GetMoviesAsync(page, tvShow, search,userId, cancellationToken);
+
+                if (!list.Any())
+                    return NotFound();
+
                 return Ok(list);
             }
             catch (Exception ex)
@@ -48,7 +55,9 @@ namespace MovieApp.WebAPI.Controllers
         {
             try
             {
-                var movie = await movieService.GetMovieByIdAsync(movieId,HttpContext.User, cancellationToken);
+                var userId = JWTHelper.GetUserIdFromToken(HttpContext.User);
+
+                var movie = await movieService.GetMovieByIdAsync(movieId,userId, cancellationToken);
 
                 if (movie == null)
                     return NotFound();
@@ -63,6 +72,30 @@ namespace MovieApp.WebAPI.Controllers
             }
         }
 
+
+        [HttpPost("rate/{movieId:int}")]
+        public async Task<ActionResult<MovieModel>> RateMovieAsync([FromRoute] int movieId, [FromBody] int rating, CancellationToken cancellationToken)
+        {
+            try
+            {
+                var userId = JWTHelper.GetUserIdFromToken(HttpContext.User);
+
+                var updatedMovie = await movieService.RateMovieAsync(movieId, userId, rating, cancellationToken);
+
+                if (updatedMovie==null)
+                    return BadRequest("Movie is not rated!");
+
+                return Ok(updatedMovie);
+
+
+            }
+            catch (Exception ex)
+            {
+                Log.Error(ex, $"Error occurs in {nameof(RateMovieAsync)}");
+                return StatusCode(500, "Something went wrong!");
+
+            }
+        }
 
 
     }

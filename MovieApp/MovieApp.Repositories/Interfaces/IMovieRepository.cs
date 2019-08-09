@@ -12,5 +12,6 @@ namespace MovieApp.Repositories.Interfaces
     {
         Task<List<Movie>> GetMoviesAsync(int page, bool tvShow, string search, CancellationToken cancellationToken);
         Task<Movie> GetMovieByIdAsync(int movieId, CancellationToken cancellationToken);
+        Task<Movie> RateMovieAsync(int movieId, int userId, int rating, CancellationToken cancellationToken);
     }
 }

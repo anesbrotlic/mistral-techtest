@@ -28,15 +28,20 @@ namespace MovieApp.Services.Implementations
         }
 
         public async Task<List<MovieModel>> GetMoviesAsync(int page, bool tvShow, string search,
-            ClaimsPrincipal userClaims, CancellationToken cancellationToken)
+            int userId, CancellationToken cancellationToken)
         {
             try
             {
+                //get movies 
                 var movieList=await movieRepository.GetMoviesAsync(page, tvShow, search, cancellationToken);
 
+                if (!movieList.Any())
+                    return null;
+
+                // mapp Movie->MovieModel
                 var mappedMovieList=mapper.Map<List<MovieModel>>(movieList);
 
-                var userId = JWTHelper.GetUserIdFromToken(userClaims);
+                // get user rate for movies
                 for (int i = 0; i < movieList.Count; i++)
                 {
                     mappedMovieList[i].RateByUser = movieList[i].MovieRatings.FirstOrDefault(mr => mr.UserId == userId)?.Rating??0;
@@ -51,17 +56,20 @@ namespace MovieApp.Services.Implementations
             }
         }
 
-        public async Task<MovieDetailModel> GetMovieByIdAsync(int movieId, ClaimsPrincipal userClaims,
+        public async Task<MovieDetailModel> GetMovieByIdAsync(int movieId, int userId,
             CancellationToken cancellationToken)
         {
             try
             {
+                // get movie
                 var movie = await movieRepository.GetMovieByIdAsync(movieId,cancellationToken);
                 if (movie == null)
                     return null;
+
+                // mapp Movie->MovieDetailsModel
                 var mappedMovie= mapper.Map<MovieDetailModel>(movie);
 
-                var userId = JWTHelper.GetUserIdFromToken(userClaims);
+                // get user rate for movie
                 mappedMovie.RateByUser = movie.MovieRatings.FirstOrDefault(mr => mr.UserId==userId)?.Rating ?? 0;
 
                 return mappedMovie;
@@ -70,6 +78,32 @@ namespace MovieApp.Services.Implementations
             catch (Exception ex)
             {
                 Log.Error(ex, $"Error occurs in {nameof(GetMovieByIdAsync)}");
+                throw;
+            }
+        }
+
+        public async Task<MovieModel> RateMovieAsync(int movieId, int userId, int rating, CancellationToken cancellationToken)
+        {
+            try
+            {
+                // try to rate movie
+                var ratedMovie=await movieRepository.RateMovieAsync(movieId, userId, rating, cancellationToken);
+
+                if (ratedMovie == null)
+                    return null;
+
+                // mapp Movie->MovieModel
+                var mappedRatedMovie=mapper.Map<MovieModel>(ratedMovie);
+
+                // get user rate for movie
+                mappedRatedMovie.RateByUser = ratedMovie.MovieRatings.FirstOrDefault(mr => mr.UserId == userId)?.Rating??0;
+
+                return mappedRatedMovie;
+
+            }
+            catch (Exception ex)
+            {
+                Log.Error(ex, $"Error occurs in {nameof(RateMovieAsync)}");
                 throw;
             }
         }
