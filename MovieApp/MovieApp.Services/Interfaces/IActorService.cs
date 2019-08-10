@@ -10,5 +10,6 @@ namespace MovieApp.Services.Interfaces
     public interface IActorService
     {
         Task<ActorDetailsModel> GetByIdAsync(int actorId, CancellationToken cancelationToken);
+        Task<List<ActorModel>> GetAllAsync(CancellationToken cancelationToken);
     }
 }

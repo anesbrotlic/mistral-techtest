@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using MovieApp.Core.Helpers;
@@ -15,7 +16,7 @@ using Serilog;
 
 namespace MovieApp.WebAPI.Controllers
 {
-    [Produces("application/json")]
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class MovieController : ControllerBase
@@ -78,8 +79,7 @@ namespace MovieApp.WebAPI.Controllers
         {
             try
             {
-                //var userId = JWTHelper.GetUserIdFromToken(HttpContext.User);
-                var userId = 4;
+                var userId = JWTHelper.GetUserIdFromToken(HttpContext.User);
 
                 var updatedMovie = await movieService.RateMovieAsync(movieId, userId, rating, cancellationToken);
 

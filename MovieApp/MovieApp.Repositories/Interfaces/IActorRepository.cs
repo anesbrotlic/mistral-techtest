@@ -11,5 +11,6 @@ namespace MovieApp.Repositories.Interfaces
     public interface IActorRepository
     {
         Task<Actor> GetByIdAsync(int actorId, CancellationToken cancelationToken);
+        Task<List<Actor>> GetAllAsync(CancellationToken cancelationToken);
     }
 }

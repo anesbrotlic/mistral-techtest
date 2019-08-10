@@ -27,5 +27,10 @@ namespace MovieApp.Repositories.Implementations
                 .ThenInclude(ma => ma.Movie)
                 .FirstOrDefaultAsync(a => a.Id == actorId, cancelationToken);
         }
+
+        public async Task<List<Actor>> GetAllAsync(CancellationToken cancelationToken)
+        {
+            return await dbContext.Actors.ToListAsync(cancelationToken);
+        }
     }
 }

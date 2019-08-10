@@ -4,7 +4,7 @@
       <span class="navbar-toggler-icon"></span>
     </button>
   
-    <div class="collapse navbar-collapse" id="navbarColor01">
+    <div *ngIf="isUserLogged" class="collapse navbar-collapse" id="navbarColor01">
       <ul class="navbar-nav mr-auto">
         <li class="nav-item">
           <a class="nav-link" [routerLink]="['/movie']" [routerLinkActive]="['active']">Movies</a>
@@ -17,6 +17,6 @@
         <input class="form-control mr-sm-2" type="text" placeholder="Search">
         <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
       </form> -->
-      <button class="logout-btn">Logout</button>
+      <button class="logout-btn" (click)="logout()">Logout</button>
     </div>
   </nav>

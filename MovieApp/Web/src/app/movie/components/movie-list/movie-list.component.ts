@@ -1,7 +1,6 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { MovieModel } from 'src/app/core/models/models';
-import { UnsubscribeOnDestroy } from 'src/app/core/common/unsubscribe.on.destroy';
-import { MovieService } from 'src/app/core/services/movie.service';
+import { Component, OnInit, Input, Injector } from '@angular/core';
+import { MovieModel } from 'src/app/core/models/data-models';
+import { MovieService } from 'src/app/core/services/data-services/movie.service';
 import { takeUntil } from 'rxjs/operators';
 import { BaseComponent } from 'src/app/core/common/base.component';
 
@@ -18,14 +17,16 @@ export class MovieListComponent extends BaseComponent implements OnInit {
 
   @Input() showOnlyMovies:string;
 
-  constructor(private movieService:MovieService) { super();}
+  constructor(injector:Injector,
+              private movieService:MovieService) { super(injector);}
 
   ngOnInit() {
-
     this.loadMovies();
   }
 
   loadMovies() {
+
+    this.showLoading();
 
     this.movieService.getAllMovies(this.pageNumber,!this.showOnlyMovies,this.searchString).pipe(
       takeUntil(this.d$))
@@ -35,13 +36,15 @@ export class MovieListComponent extends BaseComponent implements OnInit {
           console.log(`gets success ${this.showOnlyMovies?'movies':'tv shows'}`);
         },
         (err)=>{},
-        ()=>{}
+        ()=>this.hideLoading()
       );
 
   }
 
   loadMore(){
     this.pageNumber++;
+
+    this.showLoading();
 
     this.movieService.getAllMovies(this.pageNumber,!this.showOnlyMovies,this.searchString).pipe(
       takeUntil(this.d$))
@@ -51,7 +54,7 @@ export class MovieListComponent extends BaseComponent implements OnInit {
           console.log(`gets success ${this.showOnlyMovies?'movies':'tv shows'} count:${res.length}`);
         },
         (err)=>{},
-        ()=>{}
+        ()=>this.hideLoading()
       );
 
   }

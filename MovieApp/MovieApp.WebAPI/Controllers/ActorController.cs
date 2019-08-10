@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using MovieApp.Entities.Entities;
@@ -14,6 +15,7 @@ using Serilog;
 
 namespace MovieApp.WebAPI.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class ActorController : ControllerBase
@@ -23,6 +25,26 @@ namespace MovieApp.WebAPI.Controllers
         public ActorController(IActorService _actorService)
         {
             actorService = _actorService;
+        }
+
+        [HttpGet]
+        public async Task<ActionResult<List<ActorModel>>> GetAllAsync(CancellationToken cancelationToken)
+        {
+            try
+            {
+                var actorList = await actorService.GetAllAsync(cancelationToken);
+
+                if (actorList == null)
+                    return NotFound();
+
+                return Ok(actorList);
+
+            }
+            catch (Exception ex)
+            {
+                Log.Error(ex, $"Error occurs in {nameof(GetAllAsync)}");
+                return StatusCode(500, "Something went wrong!");
+            }
         }
 
 

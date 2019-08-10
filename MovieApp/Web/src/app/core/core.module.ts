@@ -1,20 +1,28 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { MovieModel, MovieModel2, ActorModel, ActorDetailModel, MovieDetailsModel, LoginModel } from './models/models';
-import { MovieService } from './services/movie.service';
-import { ActorService } from './services/actor.service';
-import { AuthService } from './services/auth.service';
-
+import { WhitespacePipe } from './pipes/whitespace';
+import { BrowserModule } from '@angular/platform-browser';
+import { FormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router';
+import { HttpClientModule } from '@angular/common/http';
 
 
 @NgModule({
-  declarations: [],
+  declarations: [WhitespacePipe],
   imports: [
-    CommonModule
+    CommonModule,
+    FormsModule,
+    RouterModule,
+    HttpClientModule
+
   ],
   exports:[
-    MovieModel,MovieModel2,MovieDetailsModel, ActorModel, ActorDetailModel, LoginModel,
-    MovieService,AuthService,ActorService
-  ]
+    CommonModule,
+    WhitespacePipe,
+    FormsModule,
+    RouterModule,
+    HttpClientModule
+  ],
+
 })
 export class CoreModule { }

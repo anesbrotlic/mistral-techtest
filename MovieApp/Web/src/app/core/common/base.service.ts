@@ -1,9 +1,10 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Injector } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from '../../../environments/environment';
 import { Observable } from 'rxjs';
-import { UnsubscribeOnDestroy } from '../common/unsubscribe.on.destroy';
+import { UnsubscribeOnDestroy } from './unsubscribe.on.destroy';
 import { catchError } from 'rxjs/operators';
+import { LoginHelperService } from '../services/shared-services/login-helper.service';
 
 
 @Injectable({
@@ -13,12 +14,16 @@ export class BaseService extends UnsubscribeOnDestroy {
 
   protected _url: string;
   protected _headers: HttpHeaders;
-  protected _http: HttpClient;
-  constructor(http: HttpClient) {
+  protected _http:HttpClient;
+  protected loginHelperService:LoginHelperService;
+  constructor(injector:Injector) {
       super();
+
+      this._http=injector.get(HttpClient);
+      this.loginHelperService=injector.get(LoginHelperService);
+
       this._url = environment.webAPIBaseURL;
-      this._headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-      this._http = http;
+      this._headers = new HttpHeaders({ 'Content-Type': 'application/json' , 'Authorization':`Bearer ${this.loginHelperService.getToken()}`});
   }
 
   protected getAll(url: string): Observable<any> {

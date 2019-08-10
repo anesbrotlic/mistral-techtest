@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Injector } from '@angular/core';
 import { BaseComponent } from 'src/app/core/common/base.component';
 
 @Component({
@@ -10,7 +10,7 @@ export class MovieTabComponent extends BaseComponent implements OnInit {
 
   showMovies:boolean=true;
 
-  constructor() { super();}
+  constructor(injector:Injector) { super(injector);}
 
   ngOnInit() {
   }

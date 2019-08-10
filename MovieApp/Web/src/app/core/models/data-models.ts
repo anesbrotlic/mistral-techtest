@@ -6,8 +6,8 @@ export class MovieModel{
     releaseDate:string;
     tvShow:boolean;
     actors:string;
-    avgRate:number;
-    rateByUser:number;
+    avgRating:number;
+    ratingByUser:number;
 }
 
 export class ActorModel{
@@ -22,8 +22,8 @@ export class MovieDetailsModel{
     description:string;
     releaseDate:string;
     tvShow:boolean;
-    avgRate:number;
-    rateByUser:number;
+    avgRating:number;
+    ratingByUser:number;
     actors:Array<ActorModel>;
 }
 

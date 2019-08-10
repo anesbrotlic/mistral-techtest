@@ -1,21 +1,37 @@
 <div class="card mb-5 d-flex" style="width:min-content;">
-        <!-- <h3 class="card-header">Card header</h3> -->
-        <img class="movie-cover-img" [src]="createImgPath(movie.coverImgPath)" alt="Card image">
-          <div class="card-body">
-            <h5 class="card-title">{{movie.title}}</h5>
-            <h6 class="card-subtitle text-muted">{{movie.releaseDate}}</h6>
-          </div>
-        <div class="card-body">
-          <p class="card-text movie-description">{{movie.description}}</p>
-        </div>
-        <ul class="list-group list-group-flush">
-          <li class="list-group-item">{{movie.actors}}</li>
-        </ul>
-        <div class="card-body">
+  <!-- <h3 class="card-header">Card header</h3> -->
+  <img class="movie-cover-img mx-auto" [src]="createImgPath(movie.coverImgPath)" alt="Card image" [routerLink]="['detail',movie.id]">
+  <div class="card-body">
+    <h5 class="card-title">{{movie.title}}</h5>
+    <h6 class="card-subtitle text-muted">{{movie.releaseDate}}</h6>
+  </div>
+  <div class="d-flex flex-column justify-content-center align-items-center">
+      <h3 style="color:#729bf8;">{{movie.avgRating | number : '1.1-1'}}</h3>
+      <bar-rating [(rate)]="movie.avgRating" [max]="5" [theme]="'movie'" [readOnly]="true"></bar-rating>
+  </div>
+  <div class="card-body">
+    <p class="card-text movie-description">{{movie.description}}</p>
+  </div>
+  <ul class="list-group list-group-flush">
+    <li class="list-group-item">
+      <p class="my-0"><small>CAST</small></p>
+      <p>
+        {{movie.actors | whitespace}}
+      </p>
+    </li>
+    <!-- <li class="list-group-item">
+        <bar-rating [(rate)]="movie.avgRating" [max]="5" [theme]="'movie'" [readOnly]="true" [showText]="true" ></bar-rating>
+      </li> -->
+  </ul>
+  <!-- <div class="card-body">
           <a href="#" class="card-link">Card link</a>
           <a href="#" class="card-link">Another link</a>
-        </div>
-        <div class="card-footer text-muted">
-          2 days ago
-        </div>
-      </div>
+        </div> -->
+  <div class="card-footer text-muted d-flex flex-row flex-wrap justify-content-between">
+      
+    <bar-rating [(rate)]="movie.ratingByUser" [max]="5" [theme]="'default'" (rateChange)="onRateChange($event)"></bar-rating>
+
+    <button class="btn btn-primary" [routerLink]="['detail',movie.id]">Details</button>
+
+  </div>
+</div>

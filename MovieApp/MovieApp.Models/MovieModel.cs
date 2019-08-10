@@ -14,8 +14,8 @@ namespace MovieApp.Models
         public bool TVShow { get; set; }
 
         public string Actors { get; set; }
-        public float AvgRate { get; set; }
+        public float AvgRating { get; set; }
 
-        public int RateByUser { get; set; }
+        public int RatingByUser { get; set; }
     }
 }

@@ -44,7 +44,7 @@ namespace MovieApp.Services.Implementations
                 // get user rate for movies
                 for (int i = 0; i < movieList.Count; i++)
                 {
-                    mappedMovieList[i].RateByUser = movieList[i].MovieRatings.FirstOrDefault(mr => mr.UserId == userId)?.Rating??0;
+                    mappedMovieList[i].RatingByUser = movieList[i].MovieRatings.FirstOrDefault(mr => mr.UserId == userId)?.Rating??0;
                 }
 
                 return mappedMovieList;
@@ -70,7 +70,7 @@ namespace MovieApp.Services.Implementations
                 var mappedMovie= mapper.Map<MovieDetailModel>(movie);
 
                 // get user rate for movie
-                mappedMovie.RateByUser = movie.MovieRatings.FirstOrDefault(mr => mr.UserId==userId)?.Rating ?? 0;
+                mappedMovie.RatingByUser = movie.MovieRatings.FirstOrDefault(mr => mr.UserId==userId)?.Rating ?? 0;
 
                 return mappedMovie;
 
@@ -96,7 +96,7 @@ namespace MovieApp.Services.Implementations
                 var mappedRatedMovie=mapper.Map<MovieModel>(ratedMovie);
 
                 // get user rate for movie
-                mappedRatedMovie.RateByUser = ratedMovie.MovieRatings.FirstOrDefault(mr => mr.UserId == userId)?.Rating??0;
+                mappedRatedMovie.RatingByUser = ratedMovie.MovieRatings.FirstOrDefault(mr => mr.UserId == userId)?.Rating??0;
 
                 return mappedRatedMovie;
 

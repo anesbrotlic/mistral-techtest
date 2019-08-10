@@ -12,13 +12,18 @@ export const environment = {
 
   webAPIBaseURL:_webAPIBaseURL,
 
-  allMoviesURL:`${movieURL}`,
-  movieByIdURL:`${movieURL}`,
+  // MOVIE URLs
+  moviesURL:`${movieURL}`,
   rateMovieByIdURL:`${movieURL}/rate`,
-  loginURL:`${authURL}/login`,
-  actorByIdURL:`${actorURL}`,
 
-  noPhotoPath:'assets/no-photo.png'
+  // AUTH URLs
+  loginURL:`${authURL}/login`,
+
+  // ACTOR URLs
+  actorsURL:`${actorURL}`,
+
+  noPhotoPath:'assets/no-photo.png',
+  loaderGifPath:'assets/loader.gif',
 
 };
 

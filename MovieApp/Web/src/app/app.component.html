@@ -1,8 +1,14 @@
-
 <app-navbar></app-navbar>
 
-<div class="container">
+<div class="container d-flex">
 
-<router-outlet></router-outlet>
+    <!-- LOADING INDICATOR -->
+    <app-global-loader *ngIf="isShowLoading"></app-global-loader>
 
+    <router-outlet></router-outlet>
+</div>
+
+<!-- TOAST INDICATOR -->
+<div class="w-100 text-center" style="position:fixed;bottom: 1px;">
+    <app-toast [toastModel]="toastModel"></app-toast>
 </div>

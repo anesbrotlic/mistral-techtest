@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
@@ -40,6 +41,27 @@ namespace MovieApp.Services.Implementations
             catch (Exception ex)
             {
                 Log.Error(ex,$"Error occurs in {nameof(GetByIdAsync)}");
+                throw;
+            }
+        }
+
+        public async Task<List<ActorModel>> GetAllAsync(CancellationToken cancelationToken)
+        {
+            try
+            {
+                var actorList = await actorRepository.GetAllAsync(cancelationToken);
+
+                if (actorList == null)
+                    return null;
+
+                actorList = actorList.OrderByDescending(a => a.Name).ToList();
+
+                return mapper.Map<List<ActorModel>>(actorList);
+
+            }
+            catch (Exception ex)
+            {
+                Log.Error(ex, $"Error occurs in {nameof(GetAllAsync)}");
                 throw;
             }
         }

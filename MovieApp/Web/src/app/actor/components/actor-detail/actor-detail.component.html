@@ -1,1 +1,17 @@
-<p>actor-detail works!</p>
+<div *ngIf="actor" class="d-flex flex-column flex-wrap p-3 p-lg-5">
+    <h2>{{actor.name}}</h2>
+
+    <div class="d-flex flex-row flex-wrap">
+
+        <img class="w-50 p-1 p-lg-3" [src]="createImgPath(actor.profileImgPath)" alt="">
+
+        <div *ngIf="actor.moviesOfActor.length>0" class="d-flex flex-column w-50 p-1 p-lg-3">
+            <h5>Movies:</h5>
+            <ul>
+                <li *ngFor="let movie of actor.moviesOfActor" class="movie-title" [routerLink]="['/movie/detail',movie.id]">{{movie.title}} {{movie.releaseDate}}</li>
+            </ul>
+        </div>
+
+    </div>
+
+</div>

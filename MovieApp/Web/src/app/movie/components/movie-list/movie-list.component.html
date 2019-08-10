@@ -1,15 +1,18 @@
-<div class="d-flex flex-column m-0 p-0">
+<div *ngIf="movies" class="d-flex flex-column m-0 p-0">
 
+    <!-- SEARCH  -->
     <div class="mx-auto my-2 w-75">
-        <input class="form-control" type="text" placeholder="Search">
+        <input class="form-control" type="text" placeholder="Search" [(ngModel)]="searchString">
     </div>
 
+    <!-- MOVIE LIST -->
     <div class="d-flex flex-row justify-content-around flex-wrap">
         <div *ngFor="let movie of movies">
             <app-movie-card [movie]="movie"></app-movie-card>
         </div>
     </div>
 
+    <!-- LOAD MORE BTN -->
     <div class="mx-auto my-2 my-lg-4">
         <button class="btn btn-primary" (click)="loadMore()">Load more</button>
     </div>

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Injector } from '@angular/core';
 import { BaseComponent } from 'src/app/core/common/base.component';
 
 @Component({
@@ -8,7 +8,7 @@ import { BaseComponent } from 'src/app/core/common/base.component';
 })
 export class MovieHomeComponent extends BaseComponent implements OnInit {
 
-  constructor() { super(); }
+  constructor(injector:Injector) { super(injector); }
 
   ngOnInit() {
   }
