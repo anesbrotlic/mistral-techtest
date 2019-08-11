@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using MovieApp.Core.Helpers;
 using MovieApp.Entities.Entities;
@@ -18,22 +19,32 @@ namespace MovieApp.Services.Implementations
     {
         private IUserRepository userRepository;
         private ILogger<IUserRepository> Logger;
+        private IConfiguration configuration;
 
-        public UserService(IUserRepository _userRepository)
+        public UserService(IUserRepository _userRepository, IConfiguration _configuration)
         {
             this.userRepository = _userRepository;
+            configuration = _configuration;
         }
 
         public async Task<string> TryLoginAndGenerateJWTAsync(CancellationToken cancelToken, LoginModel loginModel)
         {
             try
             {
+
                 var loggedUser = await TryLoginAsync(cancelToken, loginModel);
 
                 if (loggedUser == null)
-                    return null;
+                {
+                    Log.Information($"User not logged in. {nameof(TryLoginAndGenerateJWTAsync)}");
 
-                var token = JWTHelper.GetToken(loggedUser);
+                    return null;
+                }
+
+
+                var token = JWTHelper.GetToken(loggedUser,Int32.Parse(configuration.GetSection("AppSettings")["TokenExpirationTimeInMinutes"]));
+
+                Log.Information($"User logged in. Token generated. {nameof(TryLoginAndGenerateJWTAsync)}");
 
                 return token;
             }

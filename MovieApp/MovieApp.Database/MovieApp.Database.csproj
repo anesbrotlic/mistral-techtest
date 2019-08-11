@@ -5,6 +5,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Proxies" Version="2.2.6" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\MovieApp.Core\MovieApp.Core.csproj" />
     <ProjectReference Include="..\MovieApp.Entities\MovieApp.Entities.csproj" />
   </ItemGroup>

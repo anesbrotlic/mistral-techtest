@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Diagnostics;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.FileProviders;
@@ -89,8 +90,12 @@ namespace MovieApp.WebAPI
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2)
                 .AddJsonOptions(options=>options.SerializerSettings.ReferenceLoopHandling=Newtonsoft.Json.ReferenceLoopHandling.Ignore);
 
+
+            //LAZY LOADING CONFIGURAITON
             services.AddDbContext<MovieDBContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("MovieAppDB")));
+                options.UseLazyLoadingProxies()
+                        .ConfigureWarnings(warnings => warnings.Ignore(CoreEventId.DetachedLazyLoadingWarning))
+                        .UseSqlServer(Configuration.GetConnectionString("MovieAppDB")), ServiceLifetime.Transient);
 
             // SERVICES DEPENDENCY INJECTION CONDIGURAITON
             services.AddScoped<IMovieService,MovieService>();

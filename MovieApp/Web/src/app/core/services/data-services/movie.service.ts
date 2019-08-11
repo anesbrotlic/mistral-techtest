@@ -4,6 +4,8 @@ import { extend } from 'webdriver-js-extender';
 import { BaseService } from '../../common/base.service';
 import { environment } from 'src/environments/environment';
 import { Observable } from 'rxjs';
+import { SearchModel } from '../../models/search-models';
+import { MovieRequestModel } from '../../models/data-models';
 
 @Injectable({
   providedIn: 'root'
@@ -14,9 +16,10 @@ export class MovieService extends BaseService {
     super(injector);
   }
 
-  getAllMovies(page:number,tvShow:boolean,search:string):Observable<any>{
-    let url=`${environment.moviesURL}?page=${page}&tvShow=${tvShow}&search=${search}`;
-    return this.getAll(url);
+  getAllMovies(page:number,tvShow:boolean,searchObject:SearchModel):Observable<any>{
+    let url=`${environment.moviesURL}`;
+    let moviesRequestModel:MovieRequestModel={page:page,tvShow:tvShow,searchObject:searchObject};
+    return this.post(url,moviesRequestModel);
   }
 
   getMovieById(movieId:number):Observable<any>{

@@ -29,17 +29,14 @@ namespace MovieApp.WebAPI.Controllers
         }
 
 
-        [HttpGet]
-        public async Task<ActionResult<List<MovieModel>>> GetMoviesAsync([FromQuery] int page, [FromQuery] bool tvShow, [FromQuery] string search, CancellationToken cancellationToken)
+        [HttpPost]
+        public async Task<ActionResult<List<MovieModel>>> GetMoviesAsync([FromBody]MovieRequestModel movieRequestModel, CancellationToken cancellationToken)
         {
             try
             {
                 var userId = JWTHelper.GetUserIdFromToken(HttpContext.User);
 
-                var list = await movieService.GetMoviesAsync(page, tvShow, search,userId, cancellationToken);
-
-                if (!list.Any())
-                    return NotFound();
+                var list = await movieService.GetMoviesAsync(movieRequestModel, userId, cancellationToken);
 
                 return Ok(list);
             }

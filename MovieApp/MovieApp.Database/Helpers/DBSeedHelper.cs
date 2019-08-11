@@ -34,10 +34,10 @@ namespace MovieApp.Database.Helpers
                     ProfileImgPath = actorInJSON.profile_path?.ToString() ?? ""
                 });
             }
-                
 
 
-            //DownloadActorPhotos(actorsList).Wait();
+
+            DownloadActorPhotos(actorsList).Wait();
 
             foreach (var actor in actorsList)
             {
@@ -79,7 +79,7 @@ namespace MovieApp.Database.Helpers
                 });
             }
 
-            //DownloadMoviePhotos(movieList).Wait();
+            DownloadMoviePhotos(movieList).Wait();
 
             foreach (var movie in movieList)
             {

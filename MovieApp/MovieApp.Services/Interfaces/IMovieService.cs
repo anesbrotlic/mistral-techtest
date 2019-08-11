@@ -11,7 +11,7 @@ namespace MovieApp.Services.Interfaces
 {
     public interface IMovieService
     {
-        Task<List<MovieModel>> GetMoviesAsync(int page, bool tvShow, string search, int userId,
+        Task<List<MovieModel>> GetMoviesAsync(MovieRequestModel movieRequestModel, int userId,
             CancellationToken cancellationToken);
         Task<MovieDetailModel> GetMovieByIdAsync(int movieId, int userId,
             CancellationToken cancellationToken);

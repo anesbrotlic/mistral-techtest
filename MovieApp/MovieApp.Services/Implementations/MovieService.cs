@@ -27,13 +27,17 @@ namespace MovieApp.Services.Implementations
             mapper = _mapper;
         }
 
-        public async Task<List<MovieModel>> GetMoviesAsync(int page, bool tvShow, string search,
+        public async Task<List<MovieModel>> GetMoviesAsync(MovieRequestModel movieRequestModel,
             int userId, CancellationToken cancellationToken)
         {
             try
             {
+
+
+
                 //get movies 
-                var movieList=await movieRepository.GetMoviesAsync(page, tvShow, search, cancellationToken);
+                var movieList =await movieRepository.GetMoviesAsync(movieRequestModel, cancellationToken);
+                Log.Information($"Movies count:{movieList.Count} {nameof(GetMoviesAsync)}");
 
                 if (!movieList.Any())
                     return null;
@@ -63,11 +67,18 @@ namespace MovieApp.Services.Implementations
             {
                 // get movie
                 var movie = await movieRepository.GetMovieByIdAsync(movieId,cancellationToken);
+
                 if (movie == null)
+                {
+                    Log.Information($"Movie by id not found. {nameof(GetMovieByIdAsync)}");
                     return null;
+                }
+
+                Log.Information($"Movie by id  found. {nameof(GetMovieByIdAsync)}");
+
 
                 // mapp Movie->MovieDetailsModel
-                var mappedMovie= mapper.Map<MovieDetailModel>(movie);
+                var mappedMovie = mapper.Map<MovieDetailModel>(movie);
 
                 // get user rate for movie
                 mappedMovie.RatingByUser = movie.MovieRatings.FirstOrDefault(mr => mr.UserId==userId)?.Rating ?? 0;
@@ -97,6 +108,8 @@ namespace MovieApp.Services.Implementations
 
                 // get user rate for movie
                 mappedRatedMovie.RatingByUser = ratedMovie.MovieRatings.FirstOrDefault(mr => mr.UserId == userId)?.Rating??0;
+
+                Log.Information($"Movie successfully rated. {nameof(RateMovieAsync)}");
 
                 return mappedRatedMovie;
 

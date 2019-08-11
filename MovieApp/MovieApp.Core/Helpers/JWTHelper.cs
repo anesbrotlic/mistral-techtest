@@ -5,6 +5,7 @@ using System.Linq;
 using System.Security.Claims;
 using System.Text;
 using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using MovieApp.Entities.Entities;
 
@@ -12,6 +13,7 @@ namespace MovieApp.Core.Helpers
 {
     public static class JWTHelper
     {
+
         public static string UserIdClaimType { get; set; } = "userId";
 
         public static string Issuer { get; set; } = "MovieApp";
@@ -20,7 +22,7 @@ namespace MovieApp.Core.Helpers
         public static string SecretKey { get; set; } = "SECRETKEY_MistralMovieAppWebAPI__$$%%@!!!@###$$$#3";
 
 
-        public static string GetToken(User user)
+        public static string GetToken(User user, int expirationInMinutes)
         {
             var secretKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(SecretKey));
             var signinCredentials = new SigningCredentials(secretKey, SecurityAlgorithms.HmacSha256);
@@ -29,7 +31,7 @@ namespace MovieApp.Core.Helpers
                 issuer: Issuer,
                 audience: Audience,
                 claims: new List<Claim> { new Claim(UserIdClaimType, user.Id.ToString()) },
-                expires: DateTime.UtcNow.AddMinutes(5),
+                expires: DateTime.UtcNow.AddMinutes(expirationInMinutes),
                 signingCredentials: signinCredentials
             );
 

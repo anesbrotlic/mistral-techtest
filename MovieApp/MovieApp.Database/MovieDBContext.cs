@@ -16,6 +16,7 @@ namespace MovieApp.Database
         public DbSet<MovieActor> MovieActors { get; set; }
         public DbSet<MovieRatings> MovieRatings { get; set; }
 
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);

@@ -2,7 +2,7 @@
 
     <!-- SEARCH  -->
     <div class="mx-auto my-2 w-75">
-        <input class="form-control" type="text" placeholder="Search" [(ngModel)]="searchString">
+        <input class="form-control" type="text" placeholder="Search" [(ngModel)]="searchString" (ngModelChange)="onSearchStringChanges($event)">
     </div>
 
     <!-- MOVIE LIST -->

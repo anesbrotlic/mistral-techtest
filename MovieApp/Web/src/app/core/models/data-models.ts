@@ -1,3 +1,5 @@
+import { SearchModel } from './search-models';
+
 export class MovieModel{
     id:number;
     title:string;
@@ -42,4 +44,10 @@ export class ActorDetailModel{
     name:string;
     profileImgPath:string;
     moviesOfActor:Array<MovieModel2>;
+}
+
+export class MovieRequestModel{
+    page:number;
+    tvShow:boolean;
+    searchObject:SearchModel;
 }

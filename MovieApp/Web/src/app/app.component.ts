@@ -28,7 +28,7 @@ export class AppComponent extends BaseComponent implements OnInit {
       .subscribe(
         (res) => {
           this.isShowLoading = res
-          console.log('loading: ' + res);
+          // console.log('loading: ' + res);
         });
 
     this.cdRef.detectChanges();

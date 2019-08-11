@@ -10,6 +10,6 @@ namespace MovieApp.Entities.Entities
         public string Name { get; set; }
         public string ProfileImgPath { get; set; }
 
-        public ICollection<MovieActor> MovieActors { get; set; }
+        public virtual ICollection<MovieActor> MovieActors { get; set; }
     }
 }

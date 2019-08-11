@@ -33,7 +33,13 @@ namespace MovieApp.Services.Implementations
                 var actor=await actorRepository.GetByIdAsync(actorId, cancelationToken);
 
                 if (actor == null)
+                {
+                    Log.Information($"Actor by id not found. {nameof(GetByIdAsync)}");
                     return null;
+                }
+
+                Log.Information($"Actor by id successfully found. {nameof(GetByIdAsync)}");
+
 
                 return mapper.Map<ActorDetailsModel>(actor);
 
@@ -55,6 +61,9 @@ namespace MovieApp.Services.Implementations
                     return null;
 
                 actorList = actorList.OrderByDescending(a => a.Name).ToList();
+
+                Log.Information($"Actor list count: {actorList.Count} {nameof(GetAllAsync)}");
+
 
                 return mapper.Map<List<ActorModel>>(actorList);
 

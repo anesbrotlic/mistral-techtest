@@ -13,8 +13,8 @@ namespace MovieApp.Entities.Entities
         public DateTime ReleaseDate { get; set; }
         public bool TVShow { get; set; }
 
-        public ICollection<MovieActor> MovieActors { get; set; }
-        public ICollection<MovieRatings> MovieRatings { get; set; }
+        public virtual ICollection<MovieActor> MovieActors { get; set; }
+        public virtual ICollection<MovieRatings> MovieRatings { get; set; }
 
     }
 }
