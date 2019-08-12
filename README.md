@@ -1,2 +1,13 @@
 # mistral-techtest
 web app for managing movies like IMDB 
+
+#logging 
+THERE IS 10 USER PROFILES ADDED FOR LOGGING ==>
+[
+{'username':'user0','password':'user0'},
+{'username':'user1','password':'user1'},
+{'username':'user2','password':'user2'},
+              ...
+{'username':'user9','password':'user9'},
+]
+ 
