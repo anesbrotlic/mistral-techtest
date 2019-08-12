@@ -2,7 +2,7 @@
 // `ng build --prod` replaces `environment.ts` with `environment.prod.ts`.
 // The list of file replacements can be found in `angular.json`.
 
-let _webAPIBaseURL='https://localhost:44322';
+let _webAPIBaseURL='http://localhost:44322';
 let actorURL=`${_webAPIBaseURL}/api/Actor`;
 let movieURL=`${_webAPIBaseURL}/api/Movie`;
 let authURL=`${_webAPIBaseURL}/api/Auth`;
