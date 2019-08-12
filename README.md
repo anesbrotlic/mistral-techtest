@@ -10,4 +10,7 @@ THERE IS 10 USER PROFILES ADDED FOR LOGGING ==>
               ...
 {'username':'user9','password':'user9'},
 ]
+
+#configuration
+AFTER STARTING WEB API COPY YOUR 'http//:YOUR_LOCALHOST:PORTNUMBER' TO webAPIBaseURL => (.\Web\src\environments\environment.ts)   
  
