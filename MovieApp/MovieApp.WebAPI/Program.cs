@@ -51,6 +51,7 @@ namespace MovieApp.WebAPI
                     _environmentName = hostingContext.HostingEnvironment.EnvironmentName;
                 })
                 .UseStartup<Startup>()
+                .UseUrls("https://localhost:44322")
                 .Build();
     }
 
