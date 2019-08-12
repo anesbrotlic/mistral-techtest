@@ -2,12 +2,14 @@
 web app for managing movies like IMDB 
 
 
-#configuration
-AFTER STARTING WEB API COPY YOUR 'http//:YOUR_LOCALHOST:PORTNUMBER' TO webAPIBaseURL => (.\Web\src\environments\environment.ts) THEN START ANGULAR APP   
+#CONFIGURATION
+After starting web API copy your 'http://[your-localhost]:[your-port-number]' to [webAPIBaseURL] located in [.\Web\src\environments\environment.ts] then start angular app.
 
+#SWAGGER
+Can access swager tool for web API on ['/swagger/index.html'].
 
-#logging 
-THERE IS 10 USER PROFILES ADDED FOR LOGGING ==>
+#LOG IN DATA
+There are 10 user profiles =>
 [
 {'username':'user0','password':'user0'},
 {'username':'user1','password':'user1'},
@@ -15,3 +17,5 @@ THERE IS 10 USER PROFILES ADDED FOR LOGGING ==>
               ...
 {'username':'user9','password':'user9'},
 ]
+
+
