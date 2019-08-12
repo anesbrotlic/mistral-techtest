@@ -16,7 +16,8 @@ export class AuthService extends BaseService {
   }
 
   login(loginModel:LoginModel):Observable<any>{
-    return this.httpClient.post(environment.loginURL,loginModel,{responseType: 'text' as 'json'});
+    return this.post_login(environment.loginURL,loginModel);
+    // return this.httpClient.post(environment.loginURL,loginModel,{responseType: 'text' as 'json'});
   }
 
 }

@@ -3,7 +3,7 @@ import { BaseComponent } from 'src/app/core/common/base.component';
 import { ActorDetailModel } from 'src/app/core/models/data-models';
 import { ActorService } from 'src/app/core/services/data-services/actor.service';
 import { ActivatedRoute } from '@angular/router';
-import { takeUntil } from 'rxjs/operators';
+import { takeUntil, finalize } from 'rxjs/operators';
 
 @Component({
   selector: 'app-actor-detail',
@@ -22,8 +22,11 @@ export class ActorDetailComponent extends BaseComponent implements OnInit {
 
     let actorId=this.route.snapshot.params['id'];
 
+    this.showLoading();
+
     this.actorService.getActorDetailsById(actorId)
-        .pipe(takeUntil(this.d$))
+    .pipe(takeUntil(this.d$),
+          finalize(()=>this.hideLoading()))
         .subscribe(
           (res)=>{
             this.actor=res;

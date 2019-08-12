@@ -2,7 +2,8 @@
 
     <!-- SEARCH  -->
     <div class="mx-auto my-2 w-75">
-        <input class="form-control" type="text" placeholder="Search" [(ngModel)]="searchString" (ngModelChange)="onSearchStringChanges($event)">
+        <!-- <input class="form-control" type="text" placeholder="Search" [(ngModel)]="searchString" (ngModelChange)="onSearchStringChanges($event)"> -->
+        <input class="form-control" type="text" placeholder="Search" (keyup)="onSearchKeyUp($event.target.value)">
     </div>
 
     <!-- MOVIE LIST -->
@@ -10,10 +11,11 @@
         <div *ngFor="let movie of movies">
             <app-movie-card [movie]="movie"></app-movie-card>
         </div>
+        <div *ngIf="movies.length==0" class="mt-3">No results</div>
     </div>
 
     <!-- LOAD MORE BTN -->
-    <div class="mx-auto my-2 my-lg-4">
+    <div class="mx-auto my-2 my-lg-4" *ngIf="movies.length>0 && canLoadMore">
         <button class="btn btn-primary" (click)="loadMore()">Load more</button>
     </div>
 

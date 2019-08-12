@@ -2,6 +2,7 @@ export class AppConstants{
 
     static jwt_local_storage_key="jwt";
     static movie_rated_success="Movie rated successfully!";
+    static error_user_message="Error occured."
 
     static rating_search_type_keywords=['stars','star','rating'];
     static rating_keyword_type_all_keywords=['more than','less than','at least','at most'];

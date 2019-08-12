@@ -1,10 +1,10 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { WhitespacePipe } from './pipes/whitespace';
-import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
+import { UserIndicatorsService } from './services/shared-services/user-indicators.service';
 
 
 @NgModule({
@@ -25,4 +25,5 @@ import { HttpClientModule } from '@angular/common/http';
   ],
 
 })
-export class CoreModule { }
+export class CoreModule {
+ }

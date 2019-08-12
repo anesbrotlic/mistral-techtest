@@ -7,7 +7,7 @@
   </div>
   <div class="d-flex flex-column justify-content-center align-items-center">
       <h3 style="color:#729bf8;">{{movie.avgRating | number : '1.1-1'}}</h3>
-      <bar-rating [(rate)]="movie.avgRating" [max]="5" [theme]="'movie'" [readOnly]="true"></bar-rating>
+      <bar-rating class="w-75 mx-auto" [(rate)]="movie.avgRating" [max]="5" [theme]="'movie'" [readOnly]="true"></bar-rating>
   </div>
   <div class="card-body">
     <p class="card-text movie-description">{{movie.description}}</p>

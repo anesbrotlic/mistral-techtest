@@ -1,7 +1,7 @@
 import { Component, OnInit, Injector } from '@angular/core';
 import { BaseComponent } from '../core/common/base.component';
 import { AuthService } from '../core/services/data-services/auth.service';
-import { takeUntil } from 'rxjs/operators';
+import { takeUntil, finalize } from 'rxjs/operators';
 import { LoginModel } from '../core/models/data-models';
 import { LoginHelperService } from '../core/services/shared-services/login-helper.service';
 import { Router } from '@angular/router';
@@ -30,17 +30,17 @@ export class LoginComponent extends BaseComponent implements OnInit {
     this.showLoading();
 
     this.authService.login(this.loginModel)
-      .pipe(takeUntil(this.d$))
+    .pipe(takeUntil(this.d$),
+          finalize(()=>this.hideLoading()))
       .subscribe(
         (token) => {
           this.loginHelperService.login(token);
           this.router.navigate(["/movie"]);
         },
         (err) => {
-          this.hideLoading();
           this.incorrectDataErrorMsg = "Cannot log in! Try again!"
         },
-        () => this.hideLoading());
+        () =>{});
 
   }
 

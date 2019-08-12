@@ -18,7 +18,6 @@ export class UserIndicatorsService {
   }
 
   showToast(toastModel:ToastModel){
-
     this.showToast$.next(toastModel);
   }
 

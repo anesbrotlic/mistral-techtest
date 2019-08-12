@@ -189,7 +189,7 @@ export class SearchHelper {
             if (!this.isNumberYear(+numberFromValue))
                 numberFromValue = ((new Date().getFullYear()) - (+numberFromValue)).toString();
 
-            keywordSrchType = KeywordTypeEnum.More;
+            keywordSrchType = KeywordTypeEnum.Less;
 
         }
         //   exact

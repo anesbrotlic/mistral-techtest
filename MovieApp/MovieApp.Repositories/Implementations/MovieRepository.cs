@@ -91,7 +91,7 @@ namespace MovieApp.Repositories.Implementations
                     {
                         case SearchTypeEnum.Rating:
                             {
-                                var movieAvgRating = (int)movie.MovieRatings.Average(mr => mr.Rating);
+                                var movieAvgRating = movie.MovieRatings.Count>0?(int)movie.MovieRatings.Average(mr => mr.Rating):0;
                                 var value = Int32.Parse(searchModel.Value);
 
                                 return switchKeywordTypeEnumResults(searchModel.KeywordSearchObject.KeyWordType, movieAvgRating, value);
@@ -121,9 +121,9 @@ namespace MovieApp.Repositories.Implementations
                 case KeywordTypeEnum.Less:
                     return source < value;
                 case KeywordTypeEnum.AtLeast:
-                    return source <= value;
+                    return source >= value;
                 case KeywordTypeEnum.AtMost:
-                    return source > value;
+                    return source <= value;
                 case KeywordTypeEnum.Exact:
                     return source == value;
 
