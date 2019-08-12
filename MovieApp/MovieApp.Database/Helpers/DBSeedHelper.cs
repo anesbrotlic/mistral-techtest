@@ -36,8 +36,10 @@ namespace MovieApp.Database.Helpers
             }
 
 
-
-            DownloadActorPhotos(actorsList).Wait();
+            // potrebno koristiti samo prilikom DBSeed-a zbog skidanja slika u Images folder
+            // sve potrebne slike se vec nalaze u folderu na GitHub repository-u stoga, zbog brzine DBSeed-a prilikom prvog pokretanja, slike se nece skidati
+            //
+            //DownloadActorPhotos(actorsList).Wait();
 
             foreach (var actor in actorsList)
             {
@@ -79,7 +81,10 @@ namespace MovieApp.Database.Helpers
                 });
             }
 
-            DownloadMoviePhotos(movieList).Wait();
+            // potrebno koristiti samo prilikom DBSeed-a zbog skidanja slika u Images folder
+            // sve potrebne slike se vec nalaze u folderu na GitHub repository-u stoga, zbog brzine DBSeed-a prilikom prvog pokretanja, slike se nece skidati
+            //
+            //DownloadMoviePhotos(movieList).Wait();
 
             foreach (var movie in movieList)
             {
