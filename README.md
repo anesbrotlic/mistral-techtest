@@ -12,5 +12,5 @@ THERE IS 10 USER PROFILES ADDED FOR LOGGING ==>
 ]
 
 #configuration
-AFTER STARTING WEB API COPY YOUR 'http//:YOUR_LOCALHOST:PORTNUMBER' TO webAPIBaseURL => (.\Web\src\environments\environment.ts)   
+AFTER STARTING WEB API COPY YOUR 'http//:YOUR_LOCALHOST:PORTNUMBER' TO webAPIBaseURL => (.\Web\src\environments\environment.ts) THEN START ANGULAR APP   
  
